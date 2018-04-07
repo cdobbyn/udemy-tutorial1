@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"io/ioutil"
+	"os"
 )
 
 // Create a new type of 'deck'
@@ -48,4 +49,14 @@ func fromString(s string) deck {
 
 func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()),0666)
+}
+
+func newDeckFromFile(filename string) deck {
+	bs, err := ioutil.ReadFile(filename)
+	if err != nil {
+		// Option #1 - log the error and return a call to newDeck()
+		// Option #2 - log the error and entirely quick the program
+		fmt.Println("Error:",err)
+		os.Exit(1)
+	}
 }
