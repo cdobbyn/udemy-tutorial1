@@ -43,10 +43,6 @@ func (d deck) toString() string {
 	return strings.Join([]string(d),",")
 }
 
-func fromString(s string) deck {
-	return deck(strings.Split(s, ","))
-}
-
 func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()),0666)
 }
@@ -59,4 +55,6 @@ func newDeckFromFile(filename string) deck {
 		fmt.Println("Error:",err)
 		os.Exit(1)
 	}
+	s := strings.Split(string(bs), ",")
+	return deck(s)
 }
